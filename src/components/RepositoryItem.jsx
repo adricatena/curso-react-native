@@ -1,5 +1,6 @@
-import { Image, StyleSheet, Text, View } from "react-native"
-import StyledText from "./StyledText"
+import { StyleSheet, View } from "react-native"
+import RepositoryStats from "./RepositoryStats"
+import RepositoryItemHeader from "./RepositoryItemHeader"
 
 function RepositoryItem({ item = {} }) {
   const {
@@ -12,46 +13,27 @@ function RepositoryItem({ item = {} }) {
     reviewCount,
     ownerAvatarUrl,
   } = item
-  // console.log(ownerAvatarUrl)
+
   return (
     <View style={styles.container}>
-      <View style={styles.personalDataContainer}>
-        <Image style={styles.image} source={{ uri: ownerAvatarUrl }} />
-        <View>
-          <StyledText>{fullName}</StyledText>
-          <Text>{description}</Text>
-          <Text>{language}</Text>
-        </View>
-      </View>
-      <View style={styles.statsContainer}>
-        <View>
-          <Text>Stars: {stargazersCount}</Text>
-        </View>
-        <View>
-          <Text>Forks: {forksCount}</Text>
-        </View>
-        <View>
-          <Text>Reviews: {reviewCount}</Text>
-        </View>
-        <View>
-          <Text>Rating: {ratingAverage}</Text>
-        </View>
-      </View>
+      <RepositoryItemHeader
+        ownerAvatarUrl={ownerAvatarUrl}
+        fullName={fullName}
+        description={description}
+        language={language}
+      />
+      <RepositoryStats
+        forksCount={forksCount}
+        stargazersCount={stargazersCount}
+        ratingAverage={ratingAverage}
+        reviewCount={reviewCount}
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {},
-  personalDataContainer: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  image: {
-    width: 50,
-    height: 50,
-  },
-  statsContainer: {},
+  container: { paddingHorizontal: 20, paddingVertical: 5 },
 })
 
 export default RepositoryItem
